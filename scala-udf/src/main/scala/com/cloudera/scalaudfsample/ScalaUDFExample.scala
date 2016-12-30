@@ -16,29 +16,26 @@
  * limitations under the License.
  */
 
-package com.cloudera.udfexample
+package com.cloudera.scalaudfexample
 
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SQLContext._
 
-object UDFExample {
+object ScalaUDFSample {
   def main(args: Array[String]) {
-    val sc = new SparkContext(new SparkConf().setAppName("UDF Example"))
-    val threshold = args(1).toInt
-    
-    // split each document into words
-    val tokenized = sc.textFile(args(0)).flatMap(_.split(" "))
-    
-    // count the occurrence of each word
-    val wordCounts = tokenized.map((_, 1)).reduceByKey(_ + _)
-    
-    // filter out words with less than threshold occurrences
-    val filtered = wordCounts.filter(_._2 >= threshold)
-    
-    // count characters
-    val charCounts = filtered.flatMap(_._1.toCharArray).map((_, 1)).reduceByKey(_ + _)
-    
-    System.out.println(charCounts.collect().mkString(", "))
+    val conf = new SparkConf().setAppName("Scala UDF Example")
+    val sc = new SparkContext(conf)
+    val sqlContext = new SQLContext(sc)
+
+    val testDF = sqlContext.read.json("udfTestInput.json")
+    testDF.registerTempTable("testDF")
+
+    // sqlContext.registerFunction(
+    sqlContext.udf.register("CURTIS", (f: Double) => ((f*9.0/5.0)+32.0))
+    sqlContext.sql("SELECT CURTIS(numVal) AS Fahrenheit FROM testDF").show()
+    sc.stop()
   }
 }
