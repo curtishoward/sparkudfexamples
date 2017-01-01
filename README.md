@@ -1,7 +1,7 @@
 # Spark UDF Examples 
 Simple examples of Spark SQL user-defined functions
 
-### Save the input data to HDFS:
+### Save the input data to HDFS
 <code>
 hdfs dfs -put data/temperatures.json temperatures.json
 </code>
