@@ -15,6 +15,7 @@ public class JavaUDFExample {
     DataFrame df = sqlContext.read().json("temperatures.json");
     df.registerTempTable("citytemps");
    
+    // Register the UDF with our SQLContext
     sqlContext.udf().register("CTOF", new UDF1<Double, Double>() {
       @Override
       public Double call(Double celcius) {
