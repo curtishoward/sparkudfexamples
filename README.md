@@ -5,7 +5,8 @@ First, save the input data to HDFS:
 <br/>
 <code>
 hdfs dfs -put data/temperatures.json temperatures.json
-<br/>
+</code>
+<code>
 hdfs dfs -put data/inventory.json    inventory.json
 </code>
 
