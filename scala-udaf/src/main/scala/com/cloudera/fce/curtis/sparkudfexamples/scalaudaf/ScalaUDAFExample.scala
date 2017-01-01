@@ -9,7 +9,7 @@ import org.apache.spark.sql.SQLContext
 
 object ScalaUDAFExample {
 
-  private class WeightedSumAggregateFunction extends UserDefinedAggregateFunction {
+  private class SumProductAggregateFunction extends UserDefinedAggregateFunction {
 
     def inputSchema: StructType =
       new StructType().add("price", DoubleType).add("quantity", LongType)
@@ -47,7 +47,7 @@ object ScalaUDAFExample {
     val testDF = sqlContext.read.json("inventory.json")
     testDF.registerTempTable("inventory") 
 
-    sqlContext.udf.register("SUMPRODUCT", new WeightedSumAggregateFunction)
+    sqlContext.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
 
     sqlContext.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
   }
