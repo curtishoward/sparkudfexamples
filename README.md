@@ -2,7 +2,6 @@
 Simple examples of Spark SQL user-defined functions
 
 ### Save the input data to HDFS:
-<br/>
 <code>
 hdfs dfs -put data/temperatures.json temperatures.json
 </code>
@@ -13,6 +12,7 @@ hdfs dfs -put data/inventory.json    inventory.json
 
 ### Build the Java and Scala examples
 Under each example root (java-udf/, scala-udf/, scala-udaf/):
+<br/>
 <code>
 mvn package
 </code>
