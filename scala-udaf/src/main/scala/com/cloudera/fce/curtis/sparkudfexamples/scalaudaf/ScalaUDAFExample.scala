@@ -1,17 +1,15 @@
 package com.cloudera.fce.curtis.sparkudfexamples.scalaudaf
 
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.sql._
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SQLContext._
 
 object ScalaUDAFExample {
 
-  private class ScalaAggregateFunction extends UserDefinedAggregateFunction {
+  private class WeightedSumAggregateFunction extends UserDefinedAggregateFunction {
 
     def inputSchema: StructType =
       new StructType().add("price", DoubleType).add("quantity", LongType)
@@ -41,19 +39,16 @@ object ScalaUDAFExample {
   }
 
   def main (args: Array[String]) {
-
-    val conf = new SparkConf().setAppName("Scala UDF Example")
-    val sc = new SparkContext(conf)
+    val conf       = new SparkConf().setAppName("Scala UDF Example")
+    val sc         = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
     import sqlContext.implicits._
 
     val testDF = sqlContext.read.json("inventory.json")
-    
-    //val mysum = new ScalaAggregateFunction()
-
     testDF.registerTempTable("testDF") 
-    sqlContext.udf.register("CURTIS", new ScalaAggregateFunction)
-    sqlContext.sql("SELECT Make, CURTIS(RetailValue,Stock) as MakeInventoryValue FROM testDF GROUP BY Make").show()
-    //sqlContext.sql("SELECT state, CURTIS(sales) as bigsales FROM testDF GROUP BY state").show()
+
+    sqlContext.udf.register("WEIGHTSUM", new WeightedSumAggregateFunction)
+
+    sqlContext.sql("SELECT Make, WEIGHTSUM(RetailValue,Stock) as InventoryValuePerMake FROM testDF GROUP BY Make").show()
   }
 }
