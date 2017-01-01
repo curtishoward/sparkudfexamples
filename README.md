@@ -11,9 +11,15 @@ hdfs dfs -put data/temperatures.json temperatures.json
 hdfs dfs -put data/inventory.json    inventory.json
 </code>
 
-### Run the UDF examples (locally)
+### Build the Java and Scala examples
+Under each example root (java-udf/, scala-udf/, scala-udaf/):
+<code>
+mvn package
+</code>
+
+### Run the examples (locally)
 Python UDF:
-i<br/>
+<br/>
 <code>
 spark-submit --master local python-udf-example.py
 </code>
