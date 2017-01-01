@@ -26,7 +26,7 @@ object ScalaUDAFExample {
       val sum   = buffer.getDouble(0)
       val price = input.getDouble(0)
       val qty   = input.getLong(1)
-      buffer.update(0, sum+(price*qty))
+      buffer.update(0, sum + (price * qty))
     }
 
     def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
@@ -39,16 +39,16 @@ object ScalaUDAFExample {
   }
 
   def main (args: Array[String]) {
-    val conf       = new SparkConf().setAppName("Scala UDF Example")
+    val conf       = new SparkConf().setAppName("Scala UDAF Example")
     val sc         = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
     import sqlContext.implicits._
 
     val testDF = sqlContext.read.json("inventory.json")
-    testDF.registerTempTable("testDF") 
+    testDF.registerTempTable("inventory") 
 
-    sqlContext.udf.register("WEIGHTSUM", new WeightedSumAggregateFunction)
+    sqlContext.udf.register("SUMPRODUCT", new WeightedSumAggregateFunction)
 
-    sqlContext.sql("SELECT Make, WEIGHTSUM(RetailValue,Stock) as InventoryValuePerMake FROM testDF GROUP BY Make").show()
+    sqlContext.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
   }
 }
