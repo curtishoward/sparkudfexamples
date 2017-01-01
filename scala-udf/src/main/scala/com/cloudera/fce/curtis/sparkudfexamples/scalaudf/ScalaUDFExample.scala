@@ -24,7 +24,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext._
 
-object ScalaUDFSample {
+object ScalaUDFExample {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Scala UDF Example")
     val sc = new SparkContext(conf)

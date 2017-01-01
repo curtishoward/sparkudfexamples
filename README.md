@@ -6,7 +6,7 @@ spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.javaudfexample.Jav
 </code>
 <br/>
 <code>
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFSample --master local target/scalaudf-0.0.1-jar-with-dependencies.jar
+spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFExample --master local target/scalaudf-0.0.1-jar-with-dependencies.jar
 </code>
 <br/>
 <code>
