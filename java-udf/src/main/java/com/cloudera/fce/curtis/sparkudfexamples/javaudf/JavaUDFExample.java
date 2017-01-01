@@ -16,7 +16,7 @@
  * limitations under the License.
  */
  
-package com.cloudera.fce.curtis.sparkudfexamples.javaudfexample;
+package com.cloudera.fce.curtis.sparkudfexamples.javaudf;
 
 import java.util.ArrayList;
 import java.util.Arrays;

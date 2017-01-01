@@ -28,7 +28,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext._
 
-object UDAF {
+object ScalaUDAFExample {
 
   //
   // A UDAF that sums sales over $500
@@ -97,38 +97,8 @@ object UDAF {
 
     customerDF.printSchema()
 
-    // val results = customerDF.groupBy("state").agg(mysum($"sales").as("bigsales"))
-
-    // results.printSchema()
-    // results.show()
     customerDF.registerTempTable("testDF") 
     sqlContext.udf.register("CURTIS", new ScalaAggregateFunction)
     sqlContext.sql("SELECT state, CURTIS(sales) as bigsales FROM testDF GROUP BY state").show()
   }
-
 }
-
-
-/*
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SQLContext._
-
-object ScalaUDAFSample {
-  def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Scala UDF Example")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
-
-    val testDF = sqlContext.read.json("udfTestInput.json")
-    testDF.registerTempTable("testDF")
-
-    // sqlContext.registerFunction(
-    sqlContext.udf.register("CURTIS", (f: Double) => ((f*9.0/5.0)+32.0))
-    sqlContext.sql("SELECT CURTIS(numVal) AS Fahrenheit FROM testDF").show()
-    sc.stop()
-  }
-}
-*/
