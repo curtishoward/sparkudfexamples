@@ -43,7 +43,6 @@ object ScalaUDAFExample {
     val conf       = new SparkConf().setAppName("Scala UDAF Example")
     val sc         = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    // import sqlContext.implicits._
 
     val testDF = sqlContext.read.json("inventory.json")
     testDF.registerTempTable("inventory") 
