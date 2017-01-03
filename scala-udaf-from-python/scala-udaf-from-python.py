@@ -10,6 +10,6 @@ df.registerTempTable("inventory")
 
 scala_sql_context  =  sqlContext._ssql_ctx
 scala_spark_context = sqlContext._sc
-scala_spark_context._jvm.com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython.ScalaUDAFFromPythonExample.registerUdfs(scala_sql_context)
+scala_spark_context._jvm.com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython.ScalaUDAFFromPythonExample.registerUdf(scala_sql_context)
 
 sqlContext.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()

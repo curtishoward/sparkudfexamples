@@ -38,7 +38,7 @@ object ScalaUDAFFromPythonExample {
   }
 
   // THIS FUNCTION IS CALLED FROM PySpark TO REGISTER OUR UDAF
-  def registerUdfs(sqlCtx: SQLContext) {
+  def registerUdf(sqlCtx: SQLContext) {
     sqlCtx.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
   }
 }
