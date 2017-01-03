@@ -42,6 +42,12 @@ Scala UDAF:
 spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample --master local target/scalaudaf-0.0.1-jar-with-dependencies.jar
 </code>
 
+Hive UDF:
+<br/>
+<code>
+spark-submit --jars target/hiveudf-0.0.1-jar-with-dependencies.jar  hive-udf-example.py
+</code>
+
 Scala UDAF From PySpark:
 <br/>
 <code>
