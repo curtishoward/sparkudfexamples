@@ -1,4 +1,4 @@
-package com.cloudera.fce.curtis.sparkudfexamples.scalafrompythonudaf
+package com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython
 
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
@@ -7,7 +7,7 @@ import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAg
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.SQLContext
 
-object ScalaUDAFForPythonExample {
+object ScalaUDAFFromPythonExample {
 
   private class SumProductAggregateFunction extends UserDefinedAggregateFunction {
     def inputSchema: StructType =     
