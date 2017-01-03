@@ -11,7 +11,7 @@ hdfs dfs -put data/inventory.json    inventory.json
 </code>
 
 ### Build the Java and Scala examples
-Under each example root (java-udf/, scala-udf/, scala-udaf/):
+Under each example root (java-udf/, scala-udf/, ...):
 <br/>
 <code>
 mvn package
@@ -42,3 +42,8 @@ Scala UDAF:
 spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample --master local target/scalaudaf-0.0.1-jar-with-dependencies.jar
 </code>
 
+Scala UDAF From PySpark:
+<br/>
+<code>
+spark-submit --jars target/scalaudaffrompython-0.0.1.jar --driver-class-path target/scalaudaffrompython-0.0.1.jar scala-udaf-from-python.py
+</code>
