@@ -18,11 +18,11 @@ public class JavaUDFExample {
     // Register the UDF with our SQLContext
     sqlContext.udf().register("CTOF", new UDF1<Double, Double>() {
       @Override
-      public Double call(Double celcius) {
-        return ((celcius * 9.0 / 5.0) + 32.0);
+      public Double call(Double degreesCelcius) {
+        return ((degreesCelcius * 9.0 / 5.0) + 32.0);
       }
     }, DataTypes.DoubleType);
     
-    sqlContext.sql("SELECT city, CTOF(avgLow) AS avgLow, CTOF(avgHigh) AS avgHigh FROM citytemps").show();
+    sqlContext.sql("SELECT city, CTOF(avgLow) AS avgLowF, CTOF(avgHigh) AS avgHighF FROM citytemps").show();
   }
 }
