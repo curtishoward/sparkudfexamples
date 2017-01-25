@@ -1,7 +1,7 @@
 # Spark UDF Examples 
 Simple examples of Spark SQL user-defined functions
 
-### Save the input data to HDFS
+### Load the sample data
 <code>
 hdfs dfs -put data/temperatures.json temperatures.json
 </code>
@@ -17,7 +17,7 @@ Under each example root (java-udf/, scala-udf/, ...):
 mvn package
 </code>
 
-### Run the examples (locally)
+### Run them
 Python UDF:
 <br/>
 <code>
