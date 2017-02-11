@@ -4,9 +4,6 @@ Simple examples of Spark SQL user-defined functions
 ### Load the sample data
 ```
 hdfs dfs -put data/temperatures.json temperatures.json
-```
-<br/>
-```
 hdfs dfs -put data/inventory.json    inventory.json
 ```
 
