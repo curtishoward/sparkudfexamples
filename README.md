@@ -18,25 +18,25 @@ mvn package
 Python UDF:
 <br/>
 ```
-spark-submit --master local python-udf-example.py
+spark-submit python-udf-example.py
 ```
 
 Scala UDF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFExample --master local target/scalaudf-0.0.1-jar-with-dependencies.jar
+spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFExample target/scalaudf-0.0.1-jar-with-dependencies.jar
 ```
 
 Java UDF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.javaudf.JavaUDFExample  --master local target/javaudf-0.0.1-jar-with-dependencies.jar
+spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.javaudf.JavaUDFExample target/javaudf-0.0.1-jar-with-dependencies.jar
 ```
 
 Scala UDAF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample --master local target/scalaudaf-0.0.1-jar-with-dependencies.jar
+spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample target/scalaudaf-0.0.1-jar-with-dependencies.jar
 ```
 
 Hive UDF:
