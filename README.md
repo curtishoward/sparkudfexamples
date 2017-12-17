@@ -1,5 +1,5 @@
 # Spark UDF Examples 
-Simple examples of Spark SQL user-defined functions
+Simple examples of Spark SQL user-defined functions. Tested with CDH 5.13.1, Spark 2.1.0 (see the *spark1.6* branch for Spark 1.x examples)
 
 ### Load the sample data
 ```
