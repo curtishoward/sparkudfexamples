@@ -18,35 +18,35 @@ mvn package
 Python UDF:
 <br/>
 ```
-spark-submit --master local python-udf-example.py
+spark2-submit --master local python-udf-example.py
 ```
 
 Scala UDF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFExample --master local target/scalaudf-0.0.1-jar-with-dependencies.jar
+spark2-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudf.ScalaUDFExample --master local target/scalaudf-0.0.1-jar-with-dependencies.jar
 ```
 
 Java UDF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.javaudf.JavaUDFExample  --master local target/javaudf-0.0.1-jar-with-dependencies.jar
+spark2-submit --class com.cloudera.fce.curtis.sparkudfexamples.javaudf.JavaUDFExample  --master local target/javaudf-0.0.1-jar-with-dependencies.jar
 ```
 
 Scala UDAF:
 <br/>
 ```
-spark-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample --master local target/scalaudaf-0.0.1-jar-with-dependencies.jar
+spark2-submit --class com.cloudera.fce.curtis.sparkudfexamples.scalaudaf.ScalaUDAFExample --master local target/scalaudaf-0.0.1-jar-with-dependencies.jar
 ```
 
 Hive UDF:
 <br/>
 ```
-spark-submit --jars target/hiveudf-0.0.1-jar-with-dependencies.jar  hive-udf-example.py
+spark2-submit --jars target/hiveudf-0.0.1-jar-with-dependencies.jar  hive-udf-example.py
 ```
 
 Scala UDAF From PySpark:
 <br/>
 ```
-spark-submit --jars target/scalaudaffrompython-0.0.1.jar --driver-class-path target/scalaudaffrompython-0.0.1.jar scala-udaf-from-python.py
+spark2-submit --jars target/scalaudaffrompython-0.0.1.jar --driver-class-path target/scalaudaffrompython-0.0.1.jar scala-udaf-from-python.py
 ```

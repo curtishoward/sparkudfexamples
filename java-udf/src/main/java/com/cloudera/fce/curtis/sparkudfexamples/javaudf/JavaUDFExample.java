@@ -9,20 +9,19 @@ import org.apache.spark.sql.types.DataTypes;
 public class JavaUDFExample {
   public static void main(String[] args) {
     SparkConf conf        = new SparkConf().setAppName("Java UDF Example");
-    JavaSparkContext sc   = new JavaSparkContext(conf);
-    SQLContext sqlContext = new org.apache.spark.sql.SQLContext(sc);
-
-    DataFrame df = sqlContext.read().json("temperatures.json");
-    df.registerTempTable("citytemps");
+    SparkSession spark = SparkSession.builder().enableHiveSupport().config(conf).getOrCreate(); 
+ 
+    Dataset<Row> ds = spark.read().json("temperatures.json");
+    ds.createOrReplaceTempView("citytemps");
    
-    // Register the UDF with our SQLContext
-    sqlContext.udf().register("CTOF", new UDF1<Double, Double>() {
+    // Register the UDF with our SparkSession 
+    spark.udf().register("CTOF", new UDF1<Double, Double>() {
       @Override
       public Double call(Double degreesCelcius) {
         return ((degreesCelcius * 9.0 / 5.0) + 32.0);
       }
     }, DataTypes.DoubleType);
     
-    sqlContext.sql("SELECT city, CTOF(avgLow) AS avgLowF, CTOF(avgHigh) AS avgHighF FROM citytemps").show();
+    spark.sql("SELECT city, CTOF(avgLow) AS avgLowF, CTOF(avgHigh) AS avgHighF FROM citytemps").show();
   }
 }

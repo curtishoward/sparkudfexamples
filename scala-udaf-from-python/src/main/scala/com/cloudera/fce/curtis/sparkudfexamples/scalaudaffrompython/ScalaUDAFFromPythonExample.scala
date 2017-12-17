@@ -1,11 +1,10 @@
 package com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython
 
-import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 import org.apache.spark.sql._
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SparkSession
 
 object ScalaUDAFFromPythonExample {
 
@@ -38,7 +37,9 @@ object ScalaUDAFFromPythonExample {
   }
 
   // This function is called from PySpark to register our UDAF
-  def registerUdf(sqlCtx: SQLContext) {
-    sqlCtx.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
+  def registerUdf() {
+    import org.apache.spark.sql.SparkSession
+    val spark = SparkSession.builder().getOrCreate() 
+    spark.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
   }
 }

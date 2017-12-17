@@ -1,11 +1,10 @@
 package com.cloudera.fce.curtis.sparkudfexamples.scalaudaf
 
-import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 import org.apache.spark.sql._
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SparkSession
 
 object ScalaUDAFExample {
 
@@ -41,14 +40,13 @@ object ScalaUDAFExample {
 
   def main (args: Array[String]) {
     val conf       = new SparkConf().setAppName("Scala UDAF Example")
-    val sc         = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark      = SparkSession.builder().enableHiveSupport().config(conf).getOrCreate()
 
-    val testDF = sqlContext.read.json("inventory.json")
-    testDF.registerTempTable("inventory") 
+    val testDF = spark.read.json("inventory.json")
+    testDF.createOrReplaceTempView("inventory") 
     // Register the UDAF with our SQLContext
-    sqlContext.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
+    spark.udf.register("SUMPRODUCT", new SumProductAggregateFunction)
 
-    sqlContext.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
+    spark.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
   }
 }

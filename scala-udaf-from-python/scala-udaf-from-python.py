@@ -1,15 +1,10 @@
-from pyspark import SparkConf, SparkContext
-from pyspark.sql import SQLContext
+from pyspark.sql import SparkSession
 
-conf = SparkConf().setAppName("Scala UDAF from Python example")
-sc   = SparkContext(conf=conf)
-sqlContext = SQLContext(sc)
+spark = SparkSession.builder.appName("Scala UDAF from Python example").getOrCreate()
 
-df = sqlContext.read.json("inventory.json")
-df.registerTempTable("inventory")
+df = spark.read.json("inventory.json")
+df.createOrReplaceTempView("inventory")
 
-scala_sql_context  =  sqlContext._ssql_ctx
-scala_spark_context = sqlContext._sc
-scala_spark_context._jvm.com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython.ScalaUDAFFromPythonExample.registerUdf(scala_sql_context)
+spark.sparkContext._jvm.com.cloudera.fce.curtis.sparkudfexamples.scalaudaffrompython.ScalaUDAFFromPythonExample.registerUdf()
 
-sqlContext.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
+spark.sql("SELECT Make, SUMPRODUCT(RetailValue,Stock) as InventoryValuePerMake FROM inventory GROUP BY Make").show()
